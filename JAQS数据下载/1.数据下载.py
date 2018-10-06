@@ -8,19 +8,19 @@ warnings.filterwarnings("ignore") #将警告给过滤掉
 
 #2_设置Config
 data_config = {
-    "remote.data.address": "tcp://data.tushare.org:8910",  #地址统一,暂不做修改
+    "remote.data.address": "tcp://data.quantos.org:8910",  #地址统一,暂不做修改
     "remote.data.username": "18161280526",  #quantos账号(手机号码)
-    #quantos账号的API令牌号码
+     # quantos账号的API令牌号码
     "remote.data.password": "eyJhbGciOiJIUzI1NiJ9.eyJjcmVhdGVfdGltZSI6IjE1MjMwMTkwMTkyMDUiLCJpc3MiOiJhdXRoMCIsImlkIjoiMTgxNjEyODA1MjYifQ.Kqx03_5DsQKOurLlQDY7GPRPoRbMisxABuNMG5zTe3Q"
 }
 
 #3_初始化数据服务与数据接口,成功登陆
-ds = RemoteDataService() #DataService启动
-ds.init_from_config(data_config) #data_config启动
-dv = DataView() #DataView初始化
+ds = RemoteDataService()         # DataService启动
+ds.init_from_config(data_config) # data_config启动
+dv = DataView() # DataView初始化
 
 #4_设置Props并用字典保存需要的参数
-start=20170104
+start=20180104
 end=20180611
 
 hs300_props = {'start_date': start, 'end_date': end, 'universe': '000300.SH',
@@ -37,12 +37,12 @@ gem_props = {'start_date': start, 'end_date': end, 'universe': '399606.SZ',
 
 #5_下载数据到本地文件
 def save_hs300(props):
-    dataview_folder = 'G:/data/hs300_611'   #设置保存地址
+    dataview_folder = 'G:/data/hs300_611' #设置保存地址
     if not (os.path.isdir(dataview_folder)):  
         os.makedirs(dataview_folder)      #若没有改地址,则创建一个          
-    dv.init_from_config(props, ds)  #先将DataView初始化并输入props和ds
-    dv.prepare_data()  #准备数据
-    dv.save_dataview(dataview_folder)  #保存数据
+    dv.init_from_config(props, ds)        #先将DataView初始化并输入props和ds
+    dv.prepare_data()                     #准备数据
+    dv.save_dataview(dataview_folder)     #保存数据
 
 def save_gem(props):
     dataview_folder = 'G:/data/gem'
@@ -71,3 +71,9 @@ df,msg = ds.daily("000001.SH",start_date=20140101,end_date=20180101, fields="sym
 #获取分钟级数据
 df,msg = ds.bar("000001.SZ,000002.SZ", trade_date =20180328,  freq="1M")
 df,msg = ds.bar("000001.SZ,000002.SZ", start_date=20180101, end_date=201804028, trade_date =20180328, freq="1M")
+
+
+
+
+
+
